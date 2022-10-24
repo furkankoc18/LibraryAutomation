@@ -1,9 +1,14 @@
 package com.library.automation.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jayway.jsonpath.Option;
 import com.library.automation.dto.BookDto;
 import com.library.automation.model.Book;
 import com.library.automation.repo.BookRepository;
@@ -22,6 +27,34 @@ public class BookServiceImpl implements BookService {
 		Book book = modelMapper.map(bookDto, Book.class);
 		BookDto dto = modelMapper.map(bookRepository.save(book), BookDto.class);
 		return dto;
+	}
+
+	@Override
+	public List<BookDto> getAllBooks() {
+		List<Book> books = bookRepository.findAll();
+		List<BookDto> bookDtos = new ArrayList<>();
+		books.stream().forEach(book -> {
+			bookDtos.add(modelMapper.map(book, BookDto.class));
+		});
+		return bookDtos;
+	}
+
+	@Override
+	public BookDto getBookFindById(int id) {
+		Optional<Book> optional = bookRepository.findById(id);
+		if (optional.isPresent()) {
+			Book book = optional.get();
+			return modelMapper.map(book, BookDto.class);
+		} else {
+//			throw new Exception("Book is not found!!!");
+		}
+		return null;
+	}
+
+	@Override
+	public BookDto updateBookById(int id, BookDto bookDto) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
