@@ -11,7 +11,7 @@ public interface BookService {
 
 	List<BookDto> getAllBooks();
 
-	BookDto getBookFindById(int id) throws BookException;
+	BookDto getBookFindById(int id);
 
 	BookDto updateBookById(int id, BookDto bookDto);
 }

@@ -38,14 +38,13 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public BookDto getBookFindById(int id) throws BookException {
+	public BookDto getBookFindById(int id) {
 		Optional<Book> optional = bookRepository.findById(id);
 		if (optional.isPresent()) {
 			Book book = optional.get();
 			return modelMapper.map(book, BookDto.class);
-		} else {
-			throw new BookException("Book is not found!!!");
-		}
+		} else
+			return null;
 	}
 
 	@Override
