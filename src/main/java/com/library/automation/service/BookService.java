@@ -3,6 +3,7 @@ package com.library.automation.service;
 import java.util.List;
 
 import com.library.automation.dto.BookDto;
+import com.library.automation.exceptions.BookException;
 
 public interface BookService {
 
@@ -10,7 +11,7 @@ public interface BookService {
 
 	List<BookDto> getAllBooks();
 
-	BookDto getBookFindById(int id);
+	BookDto getBookFindById(int id) throws BookException;
 
 	BookDto updateBookById(int id, BookDto bookDto);
 }

@@ -3,13 +3,11 @@ package com.library.automation.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.jayway.jsonpath.Option;
 import com.library.automation.dto.BookDto;
+import com.library.automation.exceptions.BookException;
 import com.library.automation.model.Book;
 import com.library.automation.repo.BookRepository;
 import com.library.automation.service.BookService;
@@ -40,15 +38,14 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public BookDto getBookFindById(int id) {
+	public BookDto getBookFindById(int id) throws BookException {
 		Optional<Book> optional = bookRepository.findById(id);
 		if (optional.isPresent()) {
 			Book book = optional.get();
 			return modelMapper.map(book, BookDto.class);
 		} else {
-//			throw new Exception("Book is not found!!!");
+			throw new BookException("Book is not found!!!");
 		}
-		return null;
 	}
 
 	@Override
