@@ -1,8 +1,6 @@
 package com.library.automation.rest;
 
 import java.util.List;
-import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +11,7 @@ import com.library.automation.service.BookService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RequestMapping(value = "/api")
@@ -22,25 +21,28 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 
+	// Kitap olusturuyor.
 	@PostMapping(value = "/books", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> createBook(@RequestBody BookDto bookDto) {
-		BookDto dto = bookService.createBook(bookDto);
-		return ResponseEntity.ok(dto);
+		return new ResponseEntity<BookDto>(bookService.createBook(bookDto), HttpStatus.CREATED);
 	}
 
+	// Butun kitapları getiriyor.
 	@GetMapping(value = "/books", produces = "application/json")
 	public ResponseEntity<?> getAllBooks() {
-		return ResponseEntity.ok(bookService.getAllBooks());
+		return new ResponseEntity<List<BookDto>>((bookService.getAllBooks()), HttpStatus.OK);
 	}
 
+	// Parametre olarak gönderilen id li kitap getiriliyor.
 	@GetMapping(value = "/books/{id}", produces = "application/json")
 	public ResponseEntity<?> getBook(@PathVariable(required = true) int id) {
-		BookDto bookDto=bookService.getBookFindById(id);
-		if(Objects.nonNull(bookDto)) {
-			return ResponseEntity.ok(bookDto);
-		}else {
-			return ResponseEntity.ok().body("Book is not found!!!");
-		}
+		return new ResponseEntity<BookDto>(bookService.getBookFindById(id), HttpStatus.OK);
+	}
+
+	@PutMapping(value = "/books/{id}", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updateBookById(@PathVariable(required = true) int id, @RequestBody BookDto bookDto) {
+
+		return new ResponseEntity<BookDto>(bookService.updateBookById(id, bookDto), HttpStatus.OK);
 	}
 
 }

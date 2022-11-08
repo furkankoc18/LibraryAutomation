@@ -1,9 +1,7 @@
 package com.library.automation.service;
 
 import java.util.List;
-
 import com.library.automation.dto.BookDto;
-import com.library.automation.exceptions.BookException;
 
 public interface BookService {
 

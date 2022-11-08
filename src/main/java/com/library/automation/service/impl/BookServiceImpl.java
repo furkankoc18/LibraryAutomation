@@ -7,7 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.library.automation.dto.BookDto;
-import com.library.automation.exceptions.BookException;
 import com.library.automation.model.Book;
 import com.library.automation.repo.BookRepository;
 import com.library.automation.service.BookService;
@@ -48,9 +47,13 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public BookDto updateBookById(int id, BookDto bookDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public BookDto updateBookById(int id, BookDto obj) {
+		Book book = bookRepository.findById(id).get();
+		book.setName(obj.getName());
+		book.setPublisher(obj.getPublisher());
+		book.setWriter(obj.getWriter());
+		bookRepository.save(book);
+		return modelMapper.map(book, BookDto.class);
 	}
 
 }
