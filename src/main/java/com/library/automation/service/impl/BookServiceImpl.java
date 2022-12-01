@@ -48,12 +48,16 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public BookDto updateBookById(int id, BookDto obj) {
-		Book book = bookRepository.findById(id).get();
-		book.setName(obj.getName());
-		book.setPublisher(obj.getPublisher());
-		book.setWriter(obj.getWriter());
-		bookRepository.save(book);
-		return modelMapper.map(book, BookDto.class);
+		Optional<Book> optional = bookRepository.findById(id);
+		if (optional.isPresent()) {
+			Book book = optional.get();
+			book.setName(obj.getName());
+			book.setPublisher(obj.getPublisher());
+			book.setWriter(obj.getWriter());
+			bookRepository.save(book);
+			return modelMapper.map(book, BookDto.class);
+		} else
+			return null;
 	}
 
 }

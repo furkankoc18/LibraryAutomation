@@ -21,19 +21,16 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 
-	// Kitap olusturuyor.
 	@PostMapping(value = "/books", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> createBook(@RequestBody BookDto bookDto) {
 		return new ResponseEntity<BookDto>(bookService.createBook(bookDto), HttpStatus.CREATED);
 	}
 
-	// Butun kitapları getiriyor.
 	@GetMapping(value = "/books", produces = "application/json")
 	public ResponseEntity<?> getAllBooks() {
 		return new ResponseEntity<List<BookDto>>((bookService.getAllBooks()), HttpStatus.OK);
 	}
 
-	// Parametre olarak gönderilen id li kitap getiriliyor.
 	@GetMapping(value = "/books/{id}", produces = "application/json")
 	public ResponseEntity<?> getBook(@PathVariable(required = true) int id) {
 		return new ResponseEntity<BookDto>(bookService.getBookFindById(id), HttpStatus.OK);
@@ -41,7 +38,6 @@ public class BookController {
 
 	@PutMapping(value = "/books/{id}", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> updateBookById(@PathVariable(required = true) int id, @RequestBody BookDto bookDto) {
-
 		return new ResponseEntity<BookDto>(bookService.updateBookById(id, bookDto), HttpStatus.OK);
 	}
 
