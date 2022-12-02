@@ -60,4 +60,9 @@ public class BookServiceImpl implements BookService {
 			return null;
 	}
 
+	@Override
+	public void deleteBookById(int id) {
+		bookRepository.deleteById(id);
+	}
+
 }

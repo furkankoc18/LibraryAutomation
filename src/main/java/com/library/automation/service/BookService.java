@@ -12,4 +12,6 @@ public interface BookService {
 	BookDto getBookFindById(int id);
 
 	BookDto updateBookById(int id, BookDto bookDto);
+
+	void deleteBookById(int id);
 }

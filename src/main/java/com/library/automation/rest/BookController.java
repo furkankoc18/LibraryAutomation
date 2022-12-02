@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.library.automation.dto.BookDto;
 import com.library.automation.service.BookService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +42,10 @@ public class BookController {
 	public ResponseEntity<?> updateBookById(@PathVariable(required = true) int id, @RequestBody BookDto bookDto) {
 		return new ResponseEntity<BookDto>(bookService.updateBookById(id, bookDto), HttpStatus.OK);
 	}
-	
-	
+
+	@DeleteMapping(value = "books/{id}")
+	public void removeBookById(@PathVariable(required = true) int id) {
+		bookService.deleteBookById(id);
+	}
 
 }
