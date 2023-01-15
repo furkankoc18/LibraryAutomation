@@ -13,5 +13,5 @@ public class LibraryAutomationConfig {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
-	
+
 }

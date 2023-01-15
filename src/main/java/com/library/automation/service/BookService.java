@@ -1,17 +1,20 @@
 package com.library.automation.service;
 
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
 import com.library.automation.dto.BookDto;
 
 public interface BookService {
 
-	BookDto createBook(BookDto bookDto);
+	ResponseEntity<Object> createBook(BookDto bookDto);
 
-	List<BookDto> getAllBooks();
+	ResponseEntity<Object> getAllBooks();
 
-	BookDto getBookFindById(int id);
+	ResponseEntity<Object> getBookFindById(int id);
 
-	BookDto updateBookById(int id, BookDto bookDto);
+	ResponseEntity<Object> updateBookById(int id, BookDto bookDto);
 
-	void deleteBookById(int id);
+	ResponseEntity<Object> deleteBookById(int id);
 }
